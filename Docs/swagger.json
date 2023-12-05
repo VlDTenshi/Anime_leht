@@ -1,42 +1,125 @@
 {
-  "openapi": "3.0.2",
-  "info": {
-      "title": "AnimeAPI",
-      "version": "1.0.0",
-      "description": "Anime_leht"
-  },
-  "paths": {
-      "/Animes": {
-          "get": {
-              "tags": [
-                  "Animes"
-              ],
-              "responses": {
-                  "200": {
-                      "content": {
-                          "application/json": {
-                              "schema": {
-                                  "type": "array",
-                                  "items": {
-                                      "type": "string"
-                                  }
-                              },
-                              "examples": {
-                                  "List of animes": {
-                                      "value": [
-                                          "Kiseiju Seino Kakurisu",
-                                          "Kimi no todoke",
-                                          "Akame ga Kilu",
-                                          "Death note"
-                                      ]
-                                  }
-                              }
-                          }
-                      }
-                  }
-              },
-              "description": "Returns a list of all animes in API"
-          }
-      }
-  }
+    "openapi": "3.0.2",
+    "info": {
+        "title": "AnimeAPI",
+        "version": "1.0.0",
+        "description": "Anime_leht"
+    },
+    "paths": {
+        "/Animes": {
+            "get": {
+                "tags": [
+                    "details"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                },
+                                "examples": {
+                                    "List of animes": {
+                                        "value": [
+                                            "Parasyte: Teaching about life",
+                                            "Reach you",
+                                            "Akame ga Kill",
+                                            "Death note",
+                                            "Elf song"
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Returns all animes in array"
+                    }
+                },
+                "summary": "Get full details of an anime",
+                "description": "Returns a list of all animes in API"
+            }
+        },
+        "/animes{id}": {
+            "get": {
+                "tags": [
+                    "details"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                },
+                                "examples": {
+                                    "Full details of anime": {
+                                        "value": "{  \r\n   \"id\":1, \"name\":\"Parasyte: Teaching about life\", \"Ilmumiseaasta\":2014, \"rating\"|: 8.8,\r\n   \"id\":2, \"name\":\"Reach you\", \"Ilmumiseaasta\":2009, \"rating\": 7.8,\r\n   \"id\":3, \"name\":\"Akame ga Kill\", \"Ilmumiseaasta\":2014, \"rating\": 7.7,\r\n   \"id\":4, \"name\":\"Death note\", \"Ilmumiseaasta\":2006, \"rating\": 8.6,\r\n   \"id\":5, \"name\":\"Elf song\", \"Ilmumiseaasta\":2004, \"rating\": 7.9\r\n}"
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Returns full details of a given id anime"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                },
+                                "examples": {
+                                    "Error": {
+                                        "value": {
+                                            "error": "anime \\w+ was not found in anime array"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Anime was not found in anime array"
+                    }
+                },
+                "operationId": "id",
+                "summary": "Get full details of an anime",
+                "description": "Return full details of a given anime, based on user input id by user"
+            },
+            "parameters": [
+                {
+                    "examples": {
+                        "IdInteger": {
+                            "value": "42"
+                        }
+                    },
+                    "name": "id",
+                    "description": "Id of Anime",
+                    "schema": {
+                        "type": "integer"
+                    },
+                    "in": "path",
+                    "required": true
+                }
+            ]
+        }
+    },
+    "components": {
+        "schemas": {
+            "error": {
+                "title": "Root Type for error",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "error": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "error": "Error message."
+                }
+            }
+        }
+    }
 }
