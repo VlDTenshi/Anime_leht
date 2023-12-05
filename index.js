@@ -1,5 +1,5 @@
 const express = require('express')
-const app = express;
+const app = express()
 const port = 8080;
 const swaggerUi = require('swagger-ui-express')
 const yamljs = require('yamljs');
@@ -26,15 +26,27 @@ app.get("/animes/:id", (req, res)=>{
     res.send(animes[req.params.id - 1])
 })
 
-app.get('/animes', (req, res)=>{
-    animes.push({
+app.post('/animes', (req, res)=>{
+    if(!req.body.name || !reqq.body.Ilmumiseaasta || !req.body.rating){
+        return res.status(400).send({error: "One or all parameters are missing"})
+    }
+    let anime = {
         id: animes.length +1,
         name: req.body.name,
         Ilmumiseaasta: req.body.Ilmumiseaasta,
         rating: req.body.rating
-    })
-    res.end()
-})
+    }
+    animes.push(anime)
 
+    res.status(201)
+    .location(`${getBaseUrl(req)}/animes/${animes.length}`)
+    .send(anime)
+})
+app.use(express.json())
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 app.listen(port, () => {console.log(`API up at: http://localhost:${port}`)})
+
+function getBaseUrl(req){
+    return req.connection && req.connection.encrypted ? 'https' : 
+    'http' + `://${req.headers.host}`
+}

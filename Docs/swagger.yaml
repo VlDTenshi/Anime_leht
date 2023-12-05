@@ -27,6 +27,43 @@ paths:
                     description: Returns all animes in array
             summary: Get full details of an anime
             description: Returns a list of all animes in API
+        post:
+            requestBody:
+                description: A new anime to be created
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/error'
+                        examples:
+                            Parameters missing:
+                                value:
+                                    error: One or all parameters are missing
+                required: true
+            tags:
+                - New
+                - anime
+            responses:
+                '201':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/new-anime'
+                            examples:
+                                Anime to be created:
+                                    value:
+                                        name: Anime Name
+                                        Ilmumiseaasta: 1907
+                                        rating: 10
+                    description: New anime has been created.
+                '400':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error'
+                    description: One or all parameteres are missing
+            summary: Creates a anime into the API (either DB or array)
+            description: |
+                Creates a new anime
     '/animes{id}':
         get:
             tags:
@@ -78,3 +115,24 @@ components:
                     type: string
             example:
                 error: Error message.
+        new-anime:
+            title: Root Type for new-anime
+            description: new anime object
+            required:
+                - rating
+                - name
+                - Ilmumiseaasta
+            type: object
+            properties:
+                name:
+                    type: string
+                Ilmumiseaasta:
+                    format: int32
+                    type: integer
+                rating:
+                    format: double
+                    type: number
+            example:
+                name: Djojo
+                Ilmumiseaasta: 2007
+                rating: 8.5
