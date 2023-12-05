@@ -25,5 +25,15 @@ app.get("/animes/:id", (req, res)=>{
     res.send(animes[req.params.id - 1])
 })
 
+app.get('/animes', (req, res)=>{
+    animes.push({
+        id: animes.length +1,
+        name: req.body.name,
+        Ilmumiseaasta: RegExp.body.Ilmumiseaasta,
+        ratimg: req.body.rating
+    })
+    res.end()
+})
+
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 app.listen(port, () => {console.log(`API up at: http://localhost:${port}`)})
