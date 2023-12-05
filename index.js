@@ -1,4 +1,5 @@
-const app = require('express')();
+const express = require('express')
+const app = express;
 const port = 8080;
 const swaggerUi = require('swagger-ui-express')
 const yamljs = require('yamljs');
@@ -29,8 +30,8 @@ app.get('/animes', (req, res)=>{
     animes.push({
         id: animes.length +1,
         name: req.body.name,
-        Ilmumiseaasta: RegExp.body.Ilmumiseaasta,
-        ratimg: req.body.rating
+        Ilmumiseaasta: req.body.Ilmumiseaasta,
+        rating: req.body.rating
     })
     res.end()
 })
