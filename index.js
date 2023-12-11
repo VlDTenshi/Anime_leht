@@ -21,7 +21,7 @@ app.get("/animes", (req, res)=>{
 app.get("/animes/:id", (req, res)=>{
     if(typeof animes[req.params.id - 1] === 'undefined')
     {
-        return res.status(404).send({error: "Anime ei ole leitud"})
+        return res.status(404).send({error: "Anime isn't found"})
     }
     res.send(animes[req.params.id - 1])
 })
@@ -46,7 +46,7 @@ app.post('/animes', (req, res)=>{
 app.delete("/animes/:id", (req, res)=>{
     if(typeof animes[req.params.id - 1] === 'undefined')
     {
-        return res.status(404).send({error: "Animes not found"})
+        return res.status(404).send({error: "Animes are not found"})
     }
     animes.splice(req.params.id - 1, 1)
     res.status(204).send({error:"No Content"})
