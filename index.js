@@ -14,7 +14,7 @@ const animes =[
     {id:5, name:"Elf song", Ilmumiseaasta:2004, rating: 7.9}
 ]
 
-app.get('/animes', (req, res)=>{
+app.get("/animes", (req, res)=>{
     res.send(animes)
 })
 
@@ -42,8 +42,17 @@ app.post('/animes', (req, res)=>{
     .location(`${getBaseUrl(req)}/animes/${animes.length}`)
     .send(anime)
 })
+
+app.delete("/animes/:id", (req, res)=>{
+    if(typeof animes[req.params.id - 1] === 'undefined')
+    {
+        return res.status(404).send({error: "Animes not found"})
+    }
+    animes.splice(req.params.id - 1, 1)
+    res.status(204).send({error:"No Content"})
+})
 app.use(express.json())
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 app.listen(port, () => {console.log(`API up at: http://localhost:${port}`)})
 
 function getBaseUrl(req){

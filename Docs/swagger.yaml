@@ -20,10 +20,10 @@ paths:
                                 List of animes:
                                     value:
                                         - 'Parasyte: Teaching about life'
-                                        - 'Reach you'
-                                        - 'Akame ga Kill'
-                                        - 'Death note'
-                                        - 'Elf song'
+                                        - Reach you
+                                        - Akame ga Kill
+                                        - Death note
+                                        - Elf song
                     description: Returns all animes in array
             summary: Get full details of an anime
             description: Returns a list of all animes in API
@@ -61,10 +61,10 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/error'
                     description: One or all parameteres are missing
-            summary: Creates a anime into the API (either DB or array)
+            summary: Creates an anime into the API (either DB or array)
             description: |
                 Creates a new anime
-    '/animes{id}':
+    '/animes/{id}':
         get:
             tags:
                 - details
@@ -93,6 +93,32 @@ paths:
             operationId: id
             summary: Get full details of an anime
             description: 'Return full details of a given anime, based on user input id by user'
+        delete:
+            tags:
+                - delete
+            responses:
+                '204':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error'
+                            examples:
+                                204 response:
+                                    value:
+                                        error: No Content
+                    description: No Content
+                '404':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error'
+                            examples:
+                                Anime /w+ was not found:
+                                    value:
+                                        error: Anime \w+ was not found
+                    description: Not found
+            summary: Delete an anime by id
+            description: Deletes an anime of the given id
         parameters:
             -
                 examples:
@@ -136,3 +162,15 @@ components:
                 name: Djojo
                 Ilmumiseaasta: 2007
                 rating: 8.5
+        delete-anime:
+            title: Root Type for delete-anime
+            description: ''
+            required:
+                - id
+            type: object
+            properties:
+                id:
+                    format: int32
+                    type: integer
+            example:
+                id: 1
