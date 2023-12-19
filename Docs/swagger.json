@@ -73,9 +73,9 @@
                                 "examples": {
                                     "Anime to be created": {
                                         "value": {
-                                            "name": "Anime Name",
+                                            "Nimi": "Anime Name",
                                             "Ilmumiseaasta": 1907,
-                                            "rating": 10
+                                            "Reiting": 10
                                         }
                                     }
                                 }
@@ -187,22 +187,39 @@
                 ],
                 "type": "object",
                 "properties": {
-                    "name": {
+                    "Nimi": {
                         "type": "string"
                     },
                     "Ilmumiseaasta": {
                         "format": "int32",
                         "type": "integer"
                     },
-                    "rating": {
+                    "Reiting": {
                         "format": "double",
                         "type": "number"
                     }
                 },
                 "example": {
-                    "name": "Djojo",
+                    "Nimi": "Djojo",
                     "Ilmumiseaasta": 2007,
-                    "rating": 8.5
+                    "Reiting": 8.5
+                }
+            },
+            "delete-anime": {
+                "title": "Root Type for delete-anime",
+                "description": "",
+                "required": [
+                    "id"
+                ],
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "format": "int32",
+                        "type": "integer"
+                    }
+                },
+                "example": {
+                    "id": 1
                 }
             }
         }

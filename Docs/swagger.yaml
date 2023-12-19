@@ -20,10 +20,10 @@ paths:
                                 List of animes:
                                     value:
                                         - 'Parasyte: Teaching about life'
-                                        - Reach you
-                                        - Akame ga Kill
-                                        - Death note
-                                        - Elf song
+                                        - 'Reach you'
+                                        - 'Akame ga Kill'
+                                        - 'Death note'
+                                        - 'Elf song'
                     description: Returns all animes in array
             summary: Get full details of an anime
             description: Returns a list of all animes in API
@@ -51,9 +51,9 @@ paths:
                             examples:
                                 Anime to be created:
                                     value:
-                                        name: Anime Name
+                                        Nimi: Anime Name
                                         Ilmumiseaasta: 1907
-                                        rating: 10
+                                        Reiting: 10
                     description: New anime has been created.
                 '400':
                     content:
@@ -78,7 +78,7 @@ paths:
                                     type: string
                             examples:
                                 Full details of anime:
-                                    value: "{  \r\n   \"id\":1, \"name\":\"Parasyte: Teaching about life\", \"Ilmumiseaasta\":2014, \"rating\"|: 8.8,\r\n   \"id\":2, \"name\":\"Reach you\", \"Ilmumiseaasta\":2009, \"rating\": 7.8,\r\n   \"id\":3, \"name\":\"Akame ga Kill\", \"Ilmumiseaasta\":2014, \"rating\": 7.7,\r\n   \"id\":4, \"name\":\"Death note\", \"Ilmumiseaasta\":2006, \"rating\": 8.6,\r\n   \"id\":5, \"name\":\"Elf song\", \"Ilmumiseaasta\":2004, \"rating\": 7.9\r\n}"
+                                    value: "{  \r\n   \"id\":1, \"Nimi\":\"Parasyte: Teaching about life\", \"Ilmumiseaasta\":2014, \"Reiting\"|: 8.8,\r\n   \"id\":2, \"name\":\"Reach you\", \"Ilmumiseaasta\":2009, \"rating\": 7.8,\r\n   \"id\":3, \"name\":\"Akame ga Kill\", \"Ilmumiseaasta\":2014, \"rating\": 7.7,\r\n   \"id\":4, \"name\":\"Death note\", \"Ilmumiseaasta\":2006, \"rating\": 8.6,\r\n   \"id\":5, \"name\":\"Elf song\", \"Ilmumiseaasta\":2004, \"rating\": 7.9\r\n}"
                     description: Returns full details of a given id anime
                 '404':
                     content:
@@ -145,8 +145,8 @@ components:
             title: Root Type for new-anime
             description: new anime object
             required:
-                - rating
-                - name
+                - Reiting
+                - Nimi
                 - Ilmumiseaasta
             type: object
             properties:

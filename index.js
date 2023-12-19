@@ -1,17 +1,19 @@
 const express = require('express')
+const cors = require('cors')
 const app = express()
 const port = 8080;
 const swaggerUi = require('swagger-ui-express')
 const yamljs = require('yamljs');
 //const swaggerDocument = require('./docs/swagger.json');
 const swaggerDocument = yamljs.load('./docs/swagger.yaml');
-
+app.use(express.json())
+app.use(cors())
 const animes =[
-    {id:1, name:"Parasyte: Teaching about life", Ilmumiseaasta:2014, rating: 8.8},
-    {id:2, name:"Reach you", Ilmumiseaasta:2009, rating: 7.8},
-    {id:3, name:"Akame ga Kill", Ilmumiseaasta:2014, rating: 7.7},
-    {id:4, name:"Death note", Ilmumiseaasta:2006, rating: 8.6},
-    {id:5, name:"Elf song", Ilmumiseaasta:2004, rating: 7.9}
+    {id:1, Nimi:"Parasyte: Teaching about life", Ilmumiseaasta:2014, Reiting: 8.8},
+    {id:2, Nimi:"Reach you", Ilmumiseaasta:2009, Reiting: 7.8},
+    {id:3, Nimi:"Akame ga Kill", Ilmumiseaasta:2014, Reiting: 7.7},
+    {id:4, Nimi:"Death note", Ilmumiseaasta:2006, Reiting: 8.6},
+    {id:5, Nimi:"Elf song", Ilmumiseaasta:2004, Reiting: 7.9}
 ]
 
 app.get("/animes", (req, res)=>{
@@ -27,14 +29,14 @@ app.get("/animes/:id", (req, res)=>{
 })
 
 app.post('/animes', (req, res)=>{
-    if(!req.body.name || !reqq.body.Ilmumiseaasta || !req.body.rating){
+    if(!req.body.Nimi || !req.body.Ilmumiseaasta || !req.body.Reiting){
         return res.status(400).send({error: "One or all parameters are missing"})
     }
     let anime = {
         id: animes.length +1,
-        name: req.body.name,
+        Nimi: req.body.Nimi,
         Ilmumiseaasta: req.body.Ilmumiseaasta,
-        rating: req.body.rating
+        Reiting: req.body.Reiting
     }
     animes.push(anime)
 
@@ -51,7 +53,7 @@ app.delete("/animes/:id", (req, res)=>{
     animes.splice(req.params.id - 1, 1)
     res.status(204).send({error:"No Content"})
 })
-app.use(express.json())
+
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 app.listen(port, () => {console.log(`API up at: http://localhost:${port}`)})
 
