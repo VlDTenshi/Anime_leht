@@ -17,35 +17,39 @@
             <th>Reiting</th>
         </tr>
         <tr v-for="anime in animes">
-            <td>{{anime.Nimi}}</td>
-            <td>{{anime.Ilmumiseaasta}}</td>
-            <td>{{anime.Reiting}}</td>
+            <td @click="getAnime(anime.id)">{{ anime.Nimi }}</td>
+            <td>{{ anime.Ilmumiseaasta }}</td>
+            <td>{{ anime.Reiting }}</td>
         </tr>
     </table>
+    <div id="animeInfoModal" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped">
+                        <tr><th>ID</th><td>{{animeInModal.id}}</td></tr>
+                        <tr><th>Nimi</th><td>{{animeInModal.Nimi}}</td></tr>
+                        <tr><th>Ilmumiseaasta</th><td>{{animeInModal.Ilmumiseaasta}}</td></tr>
+                        <tr><th>Reiting</th><td>{{animeInModal.Reiting}}</td></tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div> 
+        </div>
+    </div>
 </div>
-    <!-- <div id="counter">
-        Counter: {{counter}}
-    </div> -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
-    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" 
-    crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/vue@3.3.11/dist/vue.global.js"></script>
-    <script>
-        const vue = Vue.createApp({
-            data(){
-                return {animes :[
-                    // {id:1, Nimi:"Parasyte: Teaching about life", Ilmumiseaasta:2014, Reiting: 8.8},
-                    // {id:2, Nimi:"Reach you", Ilmumiseaasta:2009, Reiting: 7.8},
-                    // {id:3, Nimi:"Akame ga Kill", Ilmumiseaasta:2014, Reiting: 7.7},
-                    // {id:4, Nimi:"Death note", Ilmumiseaasta:2006, Reiting: 8.6},
-                    // {id:5, Nimi:"Elf song", Ilmumiseaasta:2004, Reiting: 7.9}
-                ]
-                }
-            },
-            async created(){
-                this.animes = await (await fetch('http://localhost:8080/animes')).json();
-            }
-        }).mount('#app')
-    </script>
+        <!-- <div id="counter">
+            Counter: {{counter}}
+        </div> -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
+integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" 
+crossorigin="anonymous"></script>
+<script src="https://unpkg.com/vue@3.3.11/dist/vue.global.js"></script>
+<script src="rest-client.js"></script>
 </body>
 </html>
