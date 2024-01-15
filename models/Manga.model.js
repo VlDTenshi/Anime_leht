@@ -1,5 +1,5 @@
 module.exports = (sequelize,Sequelize) => {
-    const Mangas = sequelize.define("Manga", {
+    const Manga = sequelize.define("Mangas", {
         id: {
             type: Sequelize.INTEGER,
             primaryKey: true,
@@ -34,5 +34,5 @@ module.exports = (sequelize,Sequelize) => {
             allowNull: true
         },
     })
-    return Mangas
+    return Manga
 }

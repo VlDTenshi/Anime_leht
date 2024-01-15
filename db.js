@@ -16,7 +16,7 @@ const db = {}
 db.Sequelize = Sequelize
 db.sequelize = sequelize
 db.Animes = require("./models/Anime.model")(sequelize,Sequelize)
-db.Manga = require("./models/Manga.model")(sequelize, Sequelize)
+db.Mangas = require("./models/Manga.model")(sequelize, Sequelize)
 module.exports = db
 
 async function Sync(){

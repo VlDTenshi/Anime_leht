@@ -1,4 +1,5 @@
 const AnimesController = require('../controllers/AnimesController.js')
+const MangasController = require('../controllers/MangasController.js')
 
 module.exports =(app) => {
     app.route("/animes")
@@ -8,4 +9,11 @@ module.exports =(app) => {
         .get(AnimesController.getById)
         .put(AnimesController.updateById)
         .delete(AnimesController.deleteById)
+    app.route("/mangas")
+        .get(MangasController.getAll) //get all animes as list
+        .post(MangasController.createNew)
+    app.route("/mangas/:id")
+        .get(MangasController.getById)
+        .put(MangasController.updateById)
+        .delete(MangasController.deleteById)
 }

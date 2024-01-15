@@ -130,7 +130,7 @@ paths:
             summary: Creates an anime into the API (either DB or array)
             description: |
                 Creates a new anime
-    /manga:
+    /mangas:
         get:
             tags:
                 - details
@@ -188,7 +188,7 @@ paths:
                     description: New manga has been created.
             summary: Creates an manga into the API(either DB or array)
             description: Creates a new manga
-    '/manga/{id}':
+    '/mangas/{id}':
         get:
             tags:
                 - details

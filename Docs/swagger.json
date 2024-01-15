@@ -204,7 +204,7 @@
                 "description": "Creates a new anime\n"
             }
         },
-        "/manga": {
+        "/mangas": {
             "get": {
                 "tags": [
                     "details"
@@ -293,7 +293,7 @@
                 "description": "Creates a new manga"
             }
         },
-        "/manga/{id}": {
+        "/mangas/{id}": {
             "get": {
                 "tags": [
                     "details"

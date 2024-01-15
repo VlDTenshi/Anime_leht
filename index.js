@@ -46,7 +46,7 @@ app.get("/animes/:id", (req, res)=>{
     }
     res.send(animes[req.params.id - 1])
 })
-app.get("/manga/:id", (req, res)=>{
+app.get("/mangas/:id", (req, res)=>{
     if(typeof manga[req.params.id - 1] === 'undefined')
     {
         return res.status(404).send({error: "Manga isn't found"})
@@ -69,7 +69,7 @@ app.post('/animes', (req, res)=>{
     .location(`${getBaseUrl(req)}/animes/${animes.length}`)
     .send(anime)
 })
-app.post('/manga', (req, res)=>{
+app.post('/mangas', (req, res)=>{
     if(!req.body.title || !req.body.author || !req.body.genre || !req.body.publication_year || !req.body.description || !req.body.cover_image_url || !req.body.rating){
         return res.status(400).send({error: "One or all parameters are missing"})
     }
@@ -86,7 +86,7 @@ app.post('/manga', (req, res)=>{
     mangas.push(manga)
 
     res.status(201)
-    .location(`${getBaseUrl(req)}/manga/${mangas.length}`)
+    .location(`${getBaseUrl(req)}/mangas/${mangas.length}`)
     .send(manga)
 })
 
@@ -98,7 +98,7 @@ app.delete("/animes/:id", (req, res)=>{
     animes.splice(req.params.id - 1, 1)
     res.status(204).send({error:"No Content"})
 })
-app.delete("/manga/:id", (req, res)=>{
+app.delete("/mangas/:id", (req, res)=>{
     if(typeof manga[req.params.id - 1] === 'undefined')
     {
         return res.status(404).send({error: "Manga are not found"})
