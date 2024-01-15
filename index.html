@@ -34,10 +34,54 @@
                 </div>
                 <div class="modal-body">
                     <table class="table table-striped">
-                        <tr><th>ID</th><td>{{animeInModal.id}}</td></tr>
-                        <tr><th>Nimi</th><td>{{animeInModal.Nimi}}</td></tr>
-                        <tr><th>Ilmumiseaasta</th><td>{{animeInModal.Ilmumiseaasta}}</td></tr>
-                        <tr><th>Reiting</th><td>{{animeInModal.Reiting}}</td></tr>
+                        <tr><th>ID</th><td>{{animeInfoModal.id}}</td></tr>
+                        <tr><th>Nimi</th><td>{{animeInfoModal.Nimi}}</td></tr>
+                        <tr><th>Ilmumiseaasta</th><td>{{animeInfoModal.Ilmumiseaasta}}</td></tr>
+                        <tr><th>Reiting</th><td>{{animeInfoModal.Reiting}}</td></tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div> 
+        </div>
+    </div> 
+    <table id="mangasTable" class="table table-striped table-bordered">
+        <tr>
+            <th>Pealkiri</th>
+            <th>Autor</th>
+            <th>Žanr</th>
+            <th>Ilmumiseaasta</th>
+            <th>Kirjeldus</th>
+            <th>Cover_Image_Url</th>
+            <th>Reiting</th>
+        </tr>
+        <tr v-for="manga in mangas">
+            <td @click="getManga(manga.id)">{{ manga.title }}</td>
+            <td>{{ manga.author }}</td>
+            <td>{{ manga.genre }}</td>
+            <td>{{ manga.publication_year }}</td>
+            <td>{{ manga.description }}</td>
+            <td>{{ manga.cover_image_url }}</td>
+            <td>{{ manga.rating }}</td>
+        </tr>
+    </table>
+    <div id="mangaInfoModal" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped">
+                        <tr><th>ID</th><td>{{mangaInfoModal.id}}</td></tr>
+                        <tr><th>Pealkiri</th><td>{{mangaInfoModal.Pealkiri}}</td></tr>
+                        <tr><th>Autor</th><td>{{mangaInfoModal.Autor}}</td></tr>
+                        <tr><th>Žanr</th><td>{{mangaInfoModal.Žanr}}</td></tr>
+                        <tr><th>Ilmumiseaasta</th><td>{{mangaInfoModal.Ilmumiseaasta}}</td></tr>
+                        <tr><th>Kirjeldus</th><td>{{mangaInfoModal.Kirjeldus}}</td></tr>
+                        <tr><th>Cover_Image_Url</th><td>{{mangaInfoModal.Cover_Image_Url}}</td></tr>
+                        <tr><th>Reiting</th><td>{{mangaInfoModal.Reiting}}</td></tr>
                     </table>
                 </div>
                 <div class="modal-footer">
