@@ -6,7 +6,113 @@
         "description": "Anime_leht"
     },
     "paths": {
-        "/Animes": {
+        "/animes/{id}": {
+            "get": {
+                "tags": [
+                    "details"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                },
+                                "examples": {
+                                    "Full details of anime": {
+                                        "value": "{  \r\n   \"id\":1, \"name\":\"Parasyte: Teaching about life\", \"release\":2014, \"rating\"|: 8.8,\r\n   \"id\":2, \"name\":\"Reach you\", \"release\":2009, \"rating\": 7.8,\r\n   \"id\":3, \"name\":\"Akame ga Kill\", \"release\":2014, \"rating\": 7.7,\r\n   \"id\":4, \"name\":\"Death note\", \"release\":2006, \"rating\": 8.6,\r\n   \"id\":5, \"name\":\"Elf song\", \"release\":2004, \"rating\": 7.9\r\n}"
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Returns full details of a given id anime"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                },
+                                "examples": {
+                                    "Error": {
+                                        "value": {
+                                            "error": "anime \\w+ was not found in anime array"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Anime was not found in anime array"
+                    }
+                },
+                "operationId": "id",
+                "summary": "Get full details of an anime",
+                "description": "Return full details of a given anime, based on user input id by user"
+            },
+            "delete": {
+                "tags": [
+                    "delete"
+                ],
+                "responses": {
+                    "204": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                },
+                                "examples": {
+                                    "204 response": {
+                                        "value": {
+                                            "error": "No Content"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "No Content"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                },
+                                "examples": {
+                                    "Anime /w+ was not found": {
+                                        "value": {
+                                            "error": "Anime \\w+ was not found"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Not found"
+                    }
+                },
+                "summary": "Delete an anime by id",
+                "description": "Deletes an anime of the given id"
+            },
+            "parameters": [
+                {
+                    "examples": {
+                        "IdInteger": {
+                            "value": "42"
+                        }
+                    },
+                    "name": "id",
+                    "description": "Id of Anime",
+                    "schema": {
+                        "type": "integer"
+                    },
+                    "in": "path",
+                    "required": true
+                }
+            ]
+        },
+        "/animes": {
             "get": {
                 "tags": [
                     "details"
@@ -73,9 +179,9 @@
                                 "examples": {
                                     "Anime to be created": {
                                         "value": {
-                                            "Nimi": "Anime Name",
-                                            "Ilmumiseaasta": 1907,
-                                            "Reiting": 10
+                                            "name": "Anime Name",
+                                            "release": 1907,
+                                            "rating": 10
                                         }
                                     }
                                 }
@@ -94,11 +200,11 @@
                         "description": "One or all parameteres are missing"
                     }
                 },
-                "summary": "Creates a anime into the API (either DB or array)",
+                "summary": "Creates an anime into the API (either DB or array)",
                 "description": "Creates a new anime\n"
             }
         },
-        "/animes{id}": {
+        "/manga": {
             "get": {
                 "tags": [
                     "details"
@@ -114,13 +220,111 @@
                                     }
                                 },
                                 "examples": {
-                                    "Full details of anime": {
-                                        "value": "{  \r\n   \"id\":1, \"name\":\"Parasyte: Teaching about life\", \"Ilmumiseaasta\":2014, \"rating\"|: 8.8,\r\n   \"id\":2, \"name\":\"Reach you\", \"Ilmumiseaasta\":2009, \"rating\": 7.8,\r\n   \"id\":3, \"name\":\"Akame ga Kill\", \"Ilmumiseaasta\":2014, \"rating\": 7.7,\r\n   \"id\":4, \"name\":\"Death note\", \"Ilmumiseaasta\":2006, \"rating\": 8.6,\r\n   \"id\":5, \"name\":\"Elf song\", \"Ilmumiseaasta\":2004, \"rating\": 7.9\r\n}"
+                                    "List of manga": {
+                                        "value": [
+                                            "Minu ihukaitsja | Ojou to Banken-kun",
+                                            "Üks Punch-Man | One Punch-Man"
+                                        ]
                                     }
                                 }
                             }
                         },
-                        "description": "Returns full details of a given id anime"
+                        "description": "Returns all mangas in array"
+                    }
+                },
+                "summary": "Get full details of an manga",
+                "description": "Returns a list of all manga in API"
+            },
+            "post": {
+                "requestBody": {
+                    "description": "A new manga to be created",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/error"
+                            },
+                            "examples": {
+                                "Parameters": {
+                                    "value": {
+                                        "error": "One or all parameters are missing"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "tags": [
+                    "New",
+                    "manga"
+                ],
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {}
+                        },
+                        "description": "New manga has been created"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/new-manga"
+                                },
+                                "examples": {
+                                    "Manga": {
+                                        "value": {
+                                            "title": "Manga Name",
+                                            "author": "Author Name",
+                                            "genre": "Genre Name",
+                                            "publication_year": 1900,
+                                            "description": "Text",
+                                            "cover_image_url": "link",
+                                            "rating": 10
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "New manga has been created."
+                    }
+                },
+                "summary": "Creates an manga into the API(either DB or array)",
+                "description": "Creates a new manga"
+            }
+        },
+        "/manga/{id}": {
+            "get": {
+                "tags": [
+                    "details"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                },
+                                "examples": {
+                                    "Full details of manga": {
+                                        "value": {
+                                            "id": 1,
+                                            "title": "Minu ihukaitsja | Ojou to Banken-kun",
+                                            "author": "Hatsuharu",
+                                            "genre": "draama, igapäevasus, romantika, shoujo(Jaapani keele žanr), kool",
+                                            "publication_year": 2018,
+                                            "description": "Sengaki Isaku on Sengaki yakuza perekonna 3. juhi lapselaps ja lapsepõlvest saati on teda ümbritsenud jubedad (pehmelt öeldes) välimustüübid, mis hirmutavad. Kuid sel kevadel läheb ta keskkooli, mis on kindlalt seotud lootusega, et tema elu pöördub tagasi normaalseks: sõpradega (nagu kõik teised) ja armastusega (nagu kõik teised). Selle nimel põgenes ta isegi oma kodulinnast, kuid see polnud nii. Lõppude lõpuks järgnes talle kannul noor 26-aastane Sengaki klanni liige Uto Keya, kes oli kindel, et tüdrukul on tuul peas ja tal on liiga vara armuda. Aga just temasse on meie vaene kangelanna juba pikka aega armunud",
+                                            "cover_image_url": "https://readmanga.live/moi_telohranitel__A5327",
+                                            "rating": 4.8
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Returns full details of a given id manga"
                     },
                     "404": {
                         "content": {
@@ -131,18 +335,61 @@
                                 "examples": {
                                     "Error": {
                                         "value": {
-                                            "error": "anime \\w+ was not found in anime array"
+                                            "error": "manga \\w+ was not found in manga array"
                                         }
                                     }
                                 }
                             }
                         },
-                        "description": "Anime was not found in anime array"
+                        "description": "Manga was not found in manga array"
                     }
                 },
                 "operationId": "id",
-                "summary": "Get full details of an anime",
+                "summary": "Get full details of an manga",
                 "description": "Return full details of a given anime, based on user input id by user"
+            },
+            "delete": {
+                "tags": [
+                    "delete"
+                ],
+                "responses": {
+                    "204": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                },
+                                "examples": {
+                                    "204": {
+                                        "value": {
+                                            "error": "No Content"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "No Content"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                },
+                                "examples": {
+                                    "Manga not found": {
+                                        "value": {
+                                            "error": "Manga \\w+ was not found"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Not found"
+                    }
+                },
+                "summary": "Delete an manga by id",
+                "description": "Deletes an manga of the given id"
             },
             "parameters": [
                 {
@@ -152,7 +399,7 @@
                         }
                     },
                     "name": "id",
-                    "description": "Id of Anime",
+                    "description": "Id of Manga",
                     "schema": {
                         "type": "integer"
                     },
@@ -183,30 +430,95 @@
                 "required": [
                     "rating",
                     "name",
-                    "Ilmumiseaasta"
+                    "release"
                 ],
                 "type": "object",
                 "properties": {
-                    "Nimi": {
+                    "name": {
                         "type": "string"
                     },
-                    "Ilmumiseaasta": {
+                    "rating": {
+                        "format": "double",
+                        "type": "number"
+                    },
+                    "release": {
+                        "format": "int32",
+                        "type": "integer"
+                    }
+                },
+                "example": {
+                    "name": "Djojo",
+                    "release": 2007,
+                    "rating": 8.5
+                }
+            },
+            "delete-anime": {
+                "title": "Root Type for delete-anime",
+                "description": "",
+                "required": [
+                    "id"
+                ],
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "format": "int32",
+                        "type": "integer"
+                    }
+                },
+                "example": {
+                    "id": 1
+                }
+            },
+            "new-manga": {
+                "title": "Root Type for new-manga",
+                "description": "new manga object",
+                "required": [
+                    "author",
+                    "cover_image_url",
+                    "description",
+                    "genre",
+                    "publication_year",
+                    "rating",
+                    "title"
+                ],
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string"
+                    },
+                    "author": {
+                        "type": "string"
+                    },
+                    "genre": {
+                        "type": "string"
+                    },
+                    "publication_year": {
                         "format": "int32",
                         "type": "integer"
                     },
-                    "Reiting": {
+                    "description": {
+                        "type": "string"
+                    },
+                    "cover_image_url": {
+                        "type": "string"
+                    },
+                    "rating": {
                         "format": "double",
                         "type": "number"
                     }
                 },
                 "example": {
-                    "Nimi": "Djojo",
-                    "Ilmumiseaasta": 2007,
-                    "Reiting": 8.5
+                    "title": "Minu ihukaitsja | Ojou to Banken-kun",
+                    "author": "Hatsuharu",
+                    "genre": "draama, igapäevasus, romantika, shoujo(Jaapani keele žanr), kool",
+                    "publication_year": 2018,
+                    "description": "Sengaki Isaku on Sengaki yakuza perekonna 3. juhi lapselaps ja lapsepõlvest saati on teda ümbritsenud jubedad (pehmelt öeldes) välimustüübid, mis hirmutavad. Kuid sel kevadel läheb ta keskkooli, mis on kindlalt seotud lootusega, et tema elu pöördub tagasi normaalseks: sõpradega (nagu kõik teised) ja armastusega (nagu kõik teised). Selle nimel põgenes ta isegi oma kodulinnast, kuid see polnud nii. Lõppude lõpuks järgnes talle kannul noor 26-aastane Sengaki klanni liige Uto Keya, kes oli kindel, et tüdrukul on tuul peas ja tal on liiga vara armuda. Aga just temasse on meie vaene kangelanna juba pikka aega armunud",
+                    "cover_image_url": "https://readmanga.live/moi_telohranitel__A5327",
+                    "rating": 4.8
                 }
             },
-            "delete-anime": {
-                "title": "Root Type for delete-anime",
+            "delete-manga": {
+                "title": "Root Type for delete-manga",
                 "description": "",
                 "required": [
                     "id"

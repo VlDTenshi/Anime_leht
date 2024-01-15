@@ -17,11 +17,15 @@
             <th>Reiting</th>
         </tr>
         <tr v-for="anime in animes">
-            <td @click="getAnime(anime.id)">{{ anime.Nimi }}</td>
-            <td>{{ anime.Ilmumiseaasta }}</td>
-            <td>{{ anime.Reiting }}</td>
+            <td @click="getAnime(anime.id)">{{ anime.name }}</td>
+            <!-- <td>{{ anime.Nimi }}</td> -->
+            <td>{{ anime.release }}</td>
+            <td>{{ anime.rating }}</td>
         </tr>
     </table>
+    <!-- <div id="counter">
+        Counter: {{counter}}
+    </div> -->
     <div id="animeInfoModal" class="modal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -41,7 +45,7 @@
                 </div>
             </div> 
         </div>
-    </div>
+    </div> 
 </div>
         <!-- <div id="counter">
             Counter: {{counter}}
@@ -51,5 +55,25 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
 crossorigin="anonymous"></script>
 <script src="https://unpkg.com/vue@3.3.11/dist/vue.global.js"></script>
 <script src="Anime_leht_frontend/rest-client.js"></script>
+
+<!-- <script>
+    const vue = Vue.createApp({
+        data(){
+            return {
+            animes:[]
+        }
+    },
+    async created(){
+        this.animes = await (await fetch('http://localhost:8080/animes')).json();
+    }
+    }).mount('#app')
+    // const Counter = {
+    //     data(){return{
+    //         counter:0
+    //         }
+    //     }
+    // }
+    
+</script> -->
 </body>
 </html>
