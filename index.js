@@ -79,7 +79,14 @@ app.delete("/animes/:id", (req, res)=>{
     animes.splice(req.params.id - 1, 1)
     res.status(204).send({error:"No Content"})
 })
-
+app.delete("/manga/:id", (req, res)=>{
+    if(typeof manga[req.params.id - 1] === 'undefined')
+    {
+        return res.status(404).send({error: "Manga are not found"})
+    }
+    manga.splice(req.params.id - 1, 1)
+    res.status(204).send({error:"No Content"})
+})
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 app.listen(port, async () => {console.log(`API up at: http://localhost:${port}`)})
 
