@@ -53,6 +53,13 @@ app.get("/mangas/:id", (req, res)=>{
     }
     res.send(manga[req.params.id - 1])
 })
+app.get("/users/:id", (req, res)=>{
+    if(typeof user[req.params.id - 1] === 'undefined')
+    {
+        return res.status(404).send({error: "User isn't found"})
+    }
+    res.send(user[req.params.id - 1])
+})
 app.post('/animes', (req, res)=>{
     if(!req.body.name || !req.body.release || !req.body.rating){
         return res.status(400).send({error: "One or all parameters are missing"})
@@ -89,7 +96,22 @@ app.post('/mangas', (req, res)=>{
     .location(`${getBaseUrl(req)}/mangas/${mangas.length}`)
     .send(manga)
 })
+app.post('/users', (req, res)=>{
+    if(!req.body.username || !req.body.email || !req.body.password){
+        return res.status(400).send({error: "One or all parameters are missing"})
+    }
+    let user = {
+        id: users.length +1,
+        username: req.body.username,
+        email: req.body.email,
+        password: req.body.password
+    }
+    users.push(user)
 
+    res.status(201)
+    .location(`${getBaseUrl(req)}/users/${users.length}`)
+    .send(user)
+})
 app.delete("/animes/:id", (req, res)=>{
     if(typeof animes[req.params.id - 1] === 'undefined')
     {
@@ -104,6 +126,14 @@ app.delete("/mangas/:id", (req, res)=>{
         return res.status(404).send({error: "Manga are not found"})
     }
     manga.splice(req.params.id - 1, 1)
+    res.status(204).send({error:"No Content"})
+})
+app.delete("/users/:id", (req, res)=>{
+    if(typeof users[req.params.id - 1] === 'undefined')
+    {
+        return res.status(404).send({error: "Users are not found"})
+    }
+    users.splice(req.params.id - 1, 1)
     res.status(204).send({error:"No Content"})
 })
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument))

@@ -298,6 +298,22 @@
                 "tags": [
                     "details"
                 ],
+                "parameters": [
+                    {
+                        "examples": {
+                            "IdInteger": {
+                                "value": "42"
+                            }
+                        },
+                        "name": "id",
+                        "description": "Id of Manga",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "content": {
@@ -351,6 +367,22 @@
             "delete": {
                 "tags": [
                     "delete"
+                ],
+                "parameters": [
+                    {
+                        "examples": {
+                            "IdInteger": {
+                                "value": "42"
+                            }
+                        },
+                        "name": "id",
+                        "description": "Id of Manga",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
                 ],
                 "responses": {
                     "204": {
@@ -407,6 +439,216 @@
                     "required": true
                 }
             ]
+        },
+        "/users": {
+            "get": {
+                "tags": [
+                    "details"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                },
+                                "examples": {
+                                    "List of users": {
+                                        "value": [
+                                            "Vladimir"
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Returns all user in array"
+                    }
+                },
+                "summary": "Get full details of an user",
+                "description": "Returns a list of all user in API"
+            },
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/error"
+                            },
+                            "examples": {
+                                "Parameters": {
+                                    "value": {
+                                        "error": "One or all parameters are missing"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "tags": [
+                    "New",
+                    "user"
+                ],
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {}
+                        },
+                        "description": "New user has been created"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/new-user"
+                                },
+                                "examples": {
+                                    "User": {
+                                        "value": {
+                                            "username": "User Name",
+                                            "email": "Email Name",
+                                            "password": "password"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "New user has been created"
+                    }
+                },
+                "summary": "Creates an user into the API(either DB or array)",
+                "description": "Creates a new user\n"
+            }
+        },
+        "/users/{id}": {
+            "get": {
+                "tags": [
+                    "details"
+                ],
+                "parameters": [
+                    {
+                        "examples": {
+                            "IdInteger": {
+                                "value": "42"
+                            }
+                        },
+                        "name": "id",
+                        "description": "id of User\n",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                },
+                                "examples": {
+                                    "Full details of users": {
+                                        "value": {
+                                            "id": 1,
+                                            "username": "Vladimir",
+                                            "email": "vdudakov@gmail.com",
+                                            "password": "*****"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Returns full details of a given id user"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                },
+                                "examples": {
+                                    "error": {
+                                        "value": {
+                                            "error": "user \\w+ was not found in user array"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "User was not found in user array"
+                    }
+                },
+                "operationId": "id",
+                "summary": "Get full details of an user",
+                "description": "Return full details of a given user, based on user input id by user"
+            },
+            "delete": {
+                "tags": [
+                    "delete"
+                ],
+                "parameters": [
+                    {
+                        "examples": {
+                            "IdInteger": {
+                                "value": "42"
+                            }
+                        },
+                        "name": "id",
+                        "description": "Id of User",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                },
+                                "examples": {
+                                    "204": {
+                                        "value": {
+                                            "error": "No Content"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "No Content"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                },
+                                "examples": {
+                                    "User not found": {
+                                        "value": {
+                                            "error": "User \\w+ was not found"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    }
+                },
+                "summary": "Delete an user by id",
+                "description": "Deletes an user of the given id"
+            }
         }
     },
     "components": {
@@ -519,6 +761,49 @@
             },
             "delete-manga": {
                 "title": "Root Type for delete-manga",
+                "description": "",
+                "required": [
+                    "id"
+                ],
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "format": "int32",
+                        "type": "integer"
+                    }
+                },
+                "example": {
+                    "id": 1
+                }
+            },
+            "new-user": {
+                "title": "Root Type for new-user",
+                "description": "new user object",
+                "required": [
+                    "email",
+                    "password",
+                    "username"
+                ],
+                "type": "object",
+                "properties": {
+                    "username": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "username": "Vladimir",
+                    "email": "vdudakov@gmail.com",
+                    "password": "*****"
+                }
+            },
+            "delete-user": {
+                "title": "Root Type for delete-user",
                 "description": "",
                 "required": [
                     "id"
